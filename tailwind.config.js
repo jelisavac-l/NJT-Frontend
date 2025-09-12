@@ -7,8 +7,9 @@ export default {
         "ppp-primary": "#1d3557",
         "ppp-secondary": "#457b9d",
         "ppp-accent": "#F0C735",
-        "ppp-white": "#f1faee",
+        "ppp-white": "#fBfbfe",
         "ppp-hl": "#a8dadc",
+        "ppp-lmuted": "#E1E1F0",
         "ppp-muted": "#6C757D"
 
       },

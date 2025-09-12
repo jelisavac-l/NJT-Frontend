@@ -2,7 +2,24 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "ppp-primary": "#1d3557",
+        "ppp-secondary": "#457b9d",
+        "ppp-accent": "#F0C735",
+        "ppp-white": "#f1faee",
+        "ppp-hl": "#a8dadc",
+        "ppp-muted": "#6C757D"
+
+      },
+      fontFamily: {
+        Lexend: ["Lexend, ui-sans-serif, system-ui"],
+      }
+    },
+    fontFamily: {
+      sans: ['Lexend']
+    }
+    
   },
   plugins: [],
 }

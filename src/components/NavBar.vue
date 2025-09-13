@@ -14,11 +14,22 @@
 
       <div class="flex items-center space-x-4">
         <template v-if="isLoggedIn">
-          <span class="font-semibold">Pozdrav, {{ username }}</span>
+           <font-awesome-icon :icon="['fas', 'fa-user']" />
+          <span class="font-semibold">{{ username }}</span>
+          
+          <!-- <button 
+            @click="" 
+            class="bg-ppp-secondary hover:bg-ppp-hl text-white px-3 py-1 rounded"
+          >
+          <font-awesome-icon :icon="['fas', 'fa-square-plus']" />
+            Nova
+          </button> -->
           <button 
             @click="logout" 
             class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+            
           >
+          <font-awesome-icon :icon="['fas', 'sign-in-alt']" />
             Odjava
           </button>
         </template>

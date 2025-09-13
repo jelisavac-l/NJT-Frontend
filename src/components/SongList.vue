@@ -10,7 +10,8 @@
       <div
         v-for="song in songs"
         :key="song.id"
-        class="bg-ppp-white p-4 rounded-lg shadow hover:shadow-md transition"
+        class="bg-ppp-white p-4 rounded-lg shadow hover:shadow-md transition hover:cursor-pointer"
+        @click="goToSong(song.id)"
       >
         <div class="flex items-center justify-between mb-2">
           <h2 class="text-xl font-semibold text-ppp-secondary">{{ song.title }}</h2>
@@ -53,7 +54,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/assets/api'
+import router from '@/router'
 const songs = ref([])
+
+const goToSong = (id) => { 
+  router.push('/songs/'+id)
+}
 
 onMounted(async () => {
   try {

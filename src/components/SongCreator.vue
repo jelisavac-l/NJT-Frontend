@@ -72,7 +72,7 @@
         v-model="lyrics"
         rows="10"
         class="w-full p-2 border border-ppp-muted rounded font-mono"
-        placeholder="Paste full lyrics here with chords inline..."
+        placeholder="Unesite tekst i akorde..."
       ></textarea>
     </div>
 
@@ -104,7 +104,6 @@ const youtubeLink = ref('')
 const lyrics = ref('')
 const genres = ref([])
 
-// Fetch artists for dropdown
 onMounted(async () => {
   if (!userStore.isLoggedIn) {
     router.push('/login')
@@ -117,17 +116,17 @@ onMounted(async () => {
 
 const fetchGenres = async () => {
   try {
-    const { data } = await api.get('/genres') // Adjust endpoint if necessary
+    const { data } = await api.get('/genres')
     genres.value = data
   } catch (err) {
-    console.error('Failed to fetch genres', err)
+    console.error('Žanrovi nisu učitani', err)
   }
 }
 
 // Create song
 const createSong = async () => {
   if (!artistId.value || !title.value || !beatMark.value || !lyrics.value) {
-    alert('Please fill all required fields.')
+    alert('Popunite obavezna polja.')
     return
   }
   const payload = {
@@ -145,11 +144,11 @@ const createSong = async () => {
     await api.post('/songs', payload, {
       headers: { Authorization: `Bearer ${userStore.token}` }
     })
-    alert('Song created successfully!')
+    alert('Pesma kreirana!')
     router.push('/')
   } catch (err) {
     console.error(err)
-    alert('Failed to create song.')
+    alert('Pesma nije kreirana.')
   }
 }
 </script>

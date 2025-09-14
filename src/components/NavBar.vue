@@ -14,9 +14,10 @@
 
       <div class="flex items-center space-x-4">
         <template v-if="isLoggedIn">
-           <font-awesome-icon :icon="['fas', 'fa-user']" />
-          <span class="font-semibold">{{ username }}</span>
-          
+          <div @click="openProfile" class="cursor-pointer">
+            <font-awesome-icon :icon="['fas', 'fa-user']" />
+            <span class="font-semibold ps-2">{{ username }}</span>
+          </div>
           <button 
             @click="addSong" 
             class="bg-ppp-secondary hover:bg-ppp-hl text-white px-3 py-1 rounded"
@@ -61,10 +62,15 @@ const addSong = () => {
   router.push('/songs/create')
 }
 
+const openProfile = () => {
+  router.push('/profile')
+}
+
 const userStore = useUserStore()
 const { username, isLoggedIn } = storeToRefs(userStore)
 
 const logout = () => {
   userStore.logout()
+  router.push('/')
 }
 </script>

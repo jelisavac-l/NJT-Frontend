@@ -24,7 +24,7 @@
     </aside>
 
     <main class="col-span-8 bg-ppp-white text-ppp-primary rounded-2xl p-6 shadow">
-      <pre class="whitespace-pre-wrap font-mono text-lg">
+      <pre class="whitespace-pre-wrap font-mono text-lg leading-tight">
         {{ song.lyrics }}
       </pre>
     </main>
@@ -88,5 +88,7 @@ onMounted(() => fetchSong())
 <style scoped>
 pre {
   font-family: 'Consolas', monospace;
+  font-size: medium;
+
 }
 </style>

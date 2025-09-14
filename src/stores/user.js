@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', {
     login(name, token) {
       this.username = name
       this.token = token
-      localStorage.setItem('username', username)
+      localStorage.setItem('username', name)
       localStorage.setItem('token', token)
     },
     logout() {

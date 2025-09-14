@@ -15,6 +15,7 @@ export default {
       },
       fontFamily: {
         Lexend: ["Lexend, ui-sans-serif, system-ui"],
+        mono: ["Consolas", "monospace"]
       }
     },
     fontFamily: {

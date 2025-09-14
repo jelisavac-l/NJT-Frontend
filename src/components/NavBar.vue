@@ -17,13 +17,13 @@
            <font-awesome-icon :icon="['fas', 'fa-user']" />
           <span class="font-semibold">{{ username }}</span>
           
-          <!-- <button 
-            @click="" 
+          <button 
+            @click="addSong" 
             class="bg-ppp-secondary hover:bg-ppp-hl text-white px-3 py-1 rounded"
           >
           <font-awesome-icon :icon="['fas', 'fa-square-plus']" />
             Nova
-          </button> -->
+          </button>
           <button 
             @click="logout" 
             class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
@@ -55,6 +55,11 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/user'
+import router from '@/router'
+
+const addSong = () => {
+  router.push('/songs/create')
+}
 
 const userStore = useUserStore()
 const { username, isLoggedIn } = storeToRefs(userStore)

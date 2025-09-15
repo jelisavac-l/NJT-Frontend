@@ -2,7 +2,7 @@
   <div class="max-w-3xl mx-auto mt-8 p-6 bg-ppp-white rounded-xl shadow">
     <h1 class="text-2xl font-bold text-ppp-primary mb-6">Uredi pesmu</h1>
 
-    <!-- Artist Dropdown -->
+    <!-- Artisti -->
     <div class="mb-4">
       <label class="block font-medium text-ppp-primary mb-1">Izvođač</label>
       <select v-model="artistId" class="w-full p-2 border border-ppp-muted rounded">
@@ -32,7 +32,7 @@
       </select>
     </div>
 
-    <!-- Beat Mark -->
+    <!-- Takt -->
     <div class="mb-4">
       <label class="block font-medium text-ppp-primary mb-1">Takt</label>
       <input v-model="beatMark" type="text"
@@ -40,7 +40,7 @@
         placeholder="npr. 4/4" />
     </div>
 
-    <!-- YouTube Link -->
+    <!-- yt Link -->
     <div class="mb-4">
       <label class="block font-medium text-ppp-primary mb-1">YouTube Link</label>
       <input v-model="youtubeLink" type="url"

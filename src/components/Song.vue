@@ -24,9 +24,7 @@
     </aside>
 
     <main class="col-span-8 bg-ppp-white text-ppp-primary rounded-2xl p-6 shadow">
-      <pre class="whitespace-pre-wrap font-mono text-lg leading-tight">
-        {{ song.lyrics }}
-      </pre>
+      <pre class="whitespace-pre-wrap font-mono text-lg leading-tight">{{ song.lyrics }}</pre>
     </main>
 
     <aside class="col-span-2 bg-ppp-secondary text-ppp-white rounded-2xl p-4 shadow">

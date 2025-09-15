@@ -7,7 +7,7 @@
       <p class="text-lg"><strong>Email:</strong> {{ user.email }}</p>
     </div>
 
-    <!-- Songs list -->
+    <!-- Song list -->
     <div>
       <h2 class="text-xl font-semibold mb-4 text-ppp-primary">Moje transkripcije</h2>
       <div v-if="songs.length === 0" class="text-ppp-muted">Niste dodali ni jednu transkripciju.</div>
@@ -52,7 +52,7 @@ const fetchProfile = async () => {
 }
 
 const editSong = (id) => {
-//   router.push({ name: 'EditSong', params: { id } })
+  router.push('/songs/' + id + '/edit')
 }
 
 const deleteSong = async (id) => {

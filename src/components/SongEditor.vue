@@ -93,12 +93,14 @@ onMounted(async () => {
     api.get('/artists'),
     api.get('/genres')
   ])
+
+  const genreMatch = allGenres.find(g => g.name === song.genreName)
+
   artists.value = allArtists
   genres.value = allGenres
 
-  // Fill form with existing song data
   artistId.value = song.artistId || song.artist?.id
-  genreId.value = song.genreId || song.genre?.id
+  genreId.value = genreMatch ? genreMatch.id : ''
   title.value = song.title
   beatMark.value = song.beatMark
   youtubeLink.value = song.youtubeLink

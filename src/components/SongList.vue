@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-4xl mx-auto mt-6">
-    <h1 class="text-2xl font-bold text-ppp-primary mb-4">Poslednje pesme</h1>
+    <h1 class="text-2xl font-bold text-ppp-primary mb-4">{{ props.title }}</h1>
 
     <div v-if="songs.length === 0" class="text-ppp-muted">
       Pesme nisu dostupne.
@@ -22,7 +22,10 @@
           <strong>Izvođač:</strong> {{ song.artistName }} |
           <strong>Žanr:</strong> {{ song.genreName }}
         </p>
-
+        <p class="text-ppp-muted">
+            <font-awesome-icon :icon="['fas', 'fa-eye']" />
+            {{ song.viewCount }}
+          </p>
         <div class="flex flex-wrap gap-2 mb-3">
           <span
             v-for="tag in song.tags"
@@ -61,9 +64,24 @@ const goToSong = (id) => {
   router.push('/songs/'+id)
 }
 
+const props = defineProps({
+  type: String,
+  title: String
+})
+
+const baseUrl = 'http://localhost:8080/api/songs'
+
+const adaptUrl = (url) => {
+  switch (props.type) {
+    case 'popular': return url + '/popular';
+    case 'latest': return url + '/latest';
+    default: return url;
+  }
+}
+
 onMounted(async () => {
   try {
-    const response = await api.get('http://localhost:8080/api/songs')
+    const response = await api.get(adaptUrl(baseUrl))
     songs.value = response.data
   } catch (error) {
     console.error('Failed to load songs', error)

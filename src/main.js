@@ -9,10 +9,10 @@ import './assets/tailwind.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useUserStore } from './stores/user'
 
-library.add(faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faUser, faEye)
+library.add(faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faUser, faEye, faPlus)
 
 
 

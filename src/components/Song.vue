@@ -67,17 +67,17 @@ onBeforeRouteUpdate((to) => fetchSong(to.params.id))
 
 // Mozda polozim PJ?
 const chordRegex = /\b([A-G](#|b)?(m|maj|min|dim|aug|sus\d*|add\d*|M|7|9|11|13)?)\b/g
-const NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
+const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 // Chord transposition method 
 const transposeChord = (chord, step) => {
   const match = chord.match(/^([A-G](#|b)?)(.*)$/)
   if (!match) return chord
-  let [, root,, suffix] = match
+  let [, root, , suffix] = match
   suffix = suffix || ''
 
   // Normalize flats to sharps because we are playing guitar and we are not bothered by theory.
-  const flatToSharp = { Db:'C#', Eb:'D#', Gb:'F#', Ab:'G#', Bb:'A#' }
+  const flatToSharp = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' }
   root = flatToSharp[root] || root
 
   const index = NOTES.indexOf(root)
@@ -97,8 +97,16 @@ const highlightedLyrics = computed(() =>
   transposedLyrics.value.replace(chordRegex, m => `<span class="text-ppp-main font-bold">${m}</span>`)
 )
 
-const transposeUp = () => transposeStep.value++
-const transposeDown = () => transposeStep.value--
+const transposeUp = () => {
+  if (transposeStep.value >= 12)  // This fixes undefined
+    transposeStep.value = 0;
+  transposeStep.value++;
+}
+const transposeDown = () => {
+  if (transposeStep.value <= -12)  // This fixes undefined
+    transposeStep.value = 0;
+  transposeStep.value--;
+}
 
 const goToSong = (id) => router.push('/songs/' + id)
 

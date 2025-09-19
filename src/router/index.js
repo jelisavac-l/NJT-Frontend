@@ -6,6 +6,7 @@ import Song from '@/components/Song.vue'
 import SongCreator from '@/components/SongCreator.vue'
 import ProfilePage from '@/components/ProfilePage.vue'
 import SongEditor from '@/components/SongEditor.vue'
+import SongSearch from '@/components/SongSearch.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
       name: 'SongEdit',
       component: SongEditor,
       meta: { requiresAuth: true },
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: SongSearch,
     },
   ],
 })

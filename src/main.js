@@ -11,8 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faEye, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useUserStore } from './stores/user'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faUser, faEye, faPlus)
+library.add(faUser, faSignInAlt, faSignOutAlt, faSquarePlus, faUser, faEye, faPlus, faGithub, faLinkedin)
 
 
 

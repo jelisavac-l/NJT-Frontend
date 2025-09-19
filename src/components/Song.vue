@@ -28,6 +28,7 @@
 
     <aside class="col-span-2 bg-ppp-secondary text-ppp-white rounded-2xl p-4 shadow">
       <h2 class="text-lg font-semibold mb-3">Podešavanja</h2>
+      
       <button @click="transposeUp"
         class="block w-full mb-2 bg-ppp-accent text-ppp-primary font-semibold rounded-lg py-2 hover:bg-yellow-400 transition">
         Transponuj ↑
@@ -36,7 +37,19 @@
         class="block w-full bg-ppp-accent text-ppp-primary font-semibold rounded-lg py-2 hover:bg-yellow-400 transition">
         Transponuj ↓
       </button>
+
+      <button
+      @click="toggleLike"
+      :class="[
+        'px-4 mt-2 py-2 rounded-lg font-semibold shadow transition',
+        liked ? 'bg-ppp-accent text-ppp-primary hover:bg-yellow-400' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+      ]"
+    >
+      {{ liked ? '♥ Sačuvana' : '♡ Sačuvaj' }}
+    </button>
     </aside>
+    
   </div>
 </template>
 
@@ -52,6 +65,7 @@ const song = ref({})
 const originalLyrics = ref('')
 const transposeStep = ref(0)
 const otherSongs = ref([])
+const liked = ref(false)
 
 const fetchSong = async (id = route.params.id) => {
   const { data } = await api.get(`/songs/${id}`)
@@ -62,6 +76,22 @@ const fetchSong = async (id = route.params.id) => {
   otherSongs.value = others.filter((s) => s.id !== data.id)
 }
 
+const fetchLikeStatus = async () => {
+  const { data } = await api.get(`/songs/favorites`)
+  liked.value = data
+}
+
+const toggleLike = async () => {
+  if (liked.value) {
+    await api.delete(`/songs/favorites/${route.params.id}`)
+    liked.value = false
+  } else {
+    await api.post(`/songs/favorites/${route.params.id}`)
+    liked.value = true
+  }
+}
+
+// Code for transposition begins here:
 // Loading new data when new route is selected from within the component!
 onBeforeRouteUpdate((to) => fetchSong(to.params.id))
 
@@ -107,6 +137,8 @@ const transposeDown = () => {
     transposeStep.value = 0;
   transposeStep.value--;
 }
+
+// Code for transposition ends here.
 
 const goToSong = (id) => router.push('/songs/' + id)
 

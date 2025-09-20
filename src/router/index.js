@@ -7,6 +7,7 @@ import SongCreator from '@/components/SongCreator.vue'
 import ProfilePage from '@/components/ProfilePage.vue'
 import SongEditor from '@/components/SongEditor.vue'
 import SongSearch from '@/components/SongSearch.vue'
+import NotFound from '@/components/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,8 @@ const router = createRouter({
       name: 'Search',
       component: SongSearch,
     },
+    // Default (404)
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   ],
 })
 

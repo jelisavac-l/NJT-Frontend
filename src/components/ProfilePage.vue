@@ -11,7 +11,12 @@
     <div>
     <!-- Song list -->
     <div>
-      <h2 class="text-xl font-semibold mb-4 text-ppp-primary">Moje transkripcije</h2>
+      <h2 class="text-xl font-semibold mb-4 text-ppp-primary">
+        Moje transkripcije | 
+        <span class="hover:text-ppp-secondary transition cursor-pointer" @click="addSong">
+          Dodaj novu
+        </span>
+      </h2>
       <div v-if="songs.length === 0" class="text-ppp-muted">Niste dodali ni jednu transkripciju.</div>
       <ul v-else class="space-y-4">
         <li v-for="song in songs" :key="song.id" class="bg-ppp-white rounded-xl shadow p-4 flex justify-between items-center">
@@ -107,6 +112,10 @@ const deleteSong = async (id) => {
 const removeFavorite = async (id) => {
       await api.delete(`/songs/favorites/${id}`)
       favorites.value = favorites.value.filter((f) => f.id !== id)
+}
+
+const addSong = () => {
+  router.push('/songs/create')
 }
 
 onMounted(fetchProfile)

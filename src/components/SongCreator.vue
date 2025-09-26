@@ -58,11 +58,43 @@
         placeholder="Unesite tekst i akorde..."></textarea>
     </div>
 
+    <!-- Tags -->
+    <div class="mb-3">
+    <label for="tags" class="block text-sm font-medium text-ppp-primary mb-2">
+      Tagovi
+    </label>
+    <select
+      id="tags"
+      v-model="selectedTags"
+      multiple
+      class="w-full p-2 border border-ppp-muted rounded"
+    >
+      <option
+        v-for="tag in tags"
+        :key="tag.id"
+        :value="tag.id"
+      >
+        {{ tag.name }}
+      </option>
+    </select>
+
+    <div class="mt-2">
+      <span
+        v-for="tagId in selectedTags"
+        :key="tagId"
+        class="inline-block bg-ppp-accent text-ppp-primary px-2 py-1 rounded-lg text-xs mr-1"
+      >
+        {{ getTagName(tagId) }}
+      </span>
+    </div>
+  </div>
+
     <button @click="createSong"
       class="px-4 py-2 bg-ppp-accent text-ppp-primary font-semibold rounded hover:bg-yellow-400">
       Sačuvaj
     </button>
   </div>
+  
 </template>
 
 <script setup>
@@ -85,6 +117,8 @@ const youtubeLink = ref('')
 const lyrics = ref('')
 const genres = ref([])
 const showPopup = ref(false)
+const tags = ref([])
+const selectedTags = ref([])
 
 onMounted(async () => {
   if (!userStore.isLoggedIn) {
@@ -93,6 +127,7 @@ onMounted(async () => {
   }
   const { data } = await api.get('/artists')
   fetchGenres()
+  fetchTags()
   artists.value = data
 })
 
@@ -109,6 +144,11 @@ const addAuthor = async (name) => {
   }
 }
 
+const fetchTags = async () => {
+  const { data } = await api.get("/tags")
+  tags.value = data
+}
+
 const fetchGenres = async () => {
   try {
     const { data } = await api.get('/genres')
@@ -116,6 +156,11 @@ const fetchGenres = async () => {
   } catch (err) {
     console.error('Žanrovi nisu učitani', err)
   }
+}
+
+const getTagName = (id) => {
+  const tag = tags.value.find((t) => t.id === id)
+  return tag ? tag.name : ""
 }
 
 // Create song
@@ -131,6 +176,7 @@ const createSong = async () => {
     genre: { id: genreId.value },
     youtubeLink: youtubeLink.value || null,
     lyrics: lyrics.value,
+    tags: selectedTags.value.map(tagId => ({ id: tagId }))
   }
 
   console.log(payload)

@@ -88,8 +88,8 @@ const submit = reactive({
 const register = async () => {
   try {
     const res = await api.post('auth/register', form)
-    alert('Registracija uspešna!')
-    router.push('/login')
+    alert('Registracija uspešna! Pogledajte e-mail i potvrdite registraciju!')
+    router.push('/login') 
   } catch (err) {
     console.error(err)
     alert('Greška prilikom registracije: ' + (err.response?.data?.message || err.message))

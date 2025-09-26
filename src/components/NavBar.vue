@@ -6,9 +6,7 @@
       </router-link>
 
       <div class="flex space-x-6">
-        <router-link to="/search" class="hover:text-ppp-hl">Pesme</router-link>
-        <router-link to="/artists" class="hover:text-ppp-hl">Izvođači</router-link>
-        <router-link to="/genres" class="hover:text-ppp-hl">Žanrovi</router-link>
+        <router-link to="/search" class="hover:text-ppp-hl"><font-awesome-icon :icon="['fas', 'fa-search']" /> Pretraga</router-link>
       </div>
 
 

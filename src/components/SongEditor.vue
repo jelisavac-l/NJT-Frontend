@@ -16,8 +16,7 @@
     <!-- Title -->
     <div class="mb-4">
       <label class="block font-medium text-ppp-primary mb-1">Naziv Pesme</label>
-      <input v-model="title" type="text"
-        class="w-full p-2 border border-ppp-muted rounded"
+      <input v-model="title" type="text" class="w-full p-2 border border-ppp-muted rounded"
         placeholder="Unesite naziv pesme" />
     </div>
 
@@ -35,25 +34,31 @@
     <!-- Takt -->
     <div class="mb-4">
       <label class="block font-medium text-ppp-primary mb-1">Takt</label>
-      <input v-model="beatMark" type="text"
-        class="w-full p-2 border border-ppp-muted rounded"
-        placeholder="npr. 4/4" />
+      <input v-model="beatMark" type="text" class="w-full p-2 border border-ppp-muted rounded" placeholder="npr. 4/4" />
     </div>
 
     <!-- yt Link -->
     <div class="mb-4">
       <label class="block font-medium text-ppp-primary mb-1">YouTube Link</label>
-      <input v-model="youtubeLink" type="url"
-        class="w-full p-2 border border-ppp-muted rounded"
+      <input v-model="youtubeLink" type="url" class="w-full p-2 border border-ppp-muted rounded"
         placeholder="https://www.youtube.com/..." />
     </div>
 
     <!-- Lyrics -->
     <div class="mb-6">
       <label class="block font-medium text-ppp-primary mb-1">Tekst i Akordi</label>
-      <textarea v-model="lyrics" rows="10"
-        class="w-full p-2 border border-ppp-muted rounded font-mono leading-snug"
+      <textarea v-model="lyrics" rows="10" class="w-full p-2 border border-ppp-muted rounded font-mono leading-snug"
         placeholder="Unesite tekst i akorde..." />
+    </div>
+    <!-- Tags -->
+    <div class="mb-4">
+      <label class="block font-medium text-ppp-primary mb-1">Tagovi</label>
+      <select v-model="selectedTags" multiple class="w-full p-2 border border-ppp-muted rounded h-32">
+        <option v-for="tag in tags" :key="tag.id" :value="tag.id">
+          {{ tag.name }}
+        </option>
+      </select>
+      <p class="text-xs text-ppp-muted mt-1">Držite CTRL (Windows/Linux) ili CMD (Mac) za izbor više tagova.</p>
     </div>
 
     <button @click="updateSong"
@@ -83,21 +88,27 @@ const beatMark = ref('')
 const youtubeLink = ref('')
 const lyrics = ref('')
 
+const tags = ref([])
+const selectedTags = ref([])
+
 onMounted(async () => {
   if (!userStore.isLoggedIn) {
     router.push('/login')
     return
   }
-  const [{ data: song }, { data: allArtists }, { data: allGenres }] = await Promise.all([
+
+  const [{ data: song }, { data: allArtists }, { data: allGenres }, { data: allTags }] = await Promise.all([
     api.get(`/songs/${songId}`),
     api.get('/artists'),
-    api.get('/genres')
+    api.get('/genres'),
+    api.get('/tags')
   ])
 
   const genreMatch = allGenres.find(g => g.name === song.genreName)
 
   artists.value = allArtists
   genres.value = allGenres
+  tags.value = allTags
 
   artistId.value = song.artistId || song.artist?.id
   genreId.value = genreMatch ? genreMatch.id : ''
@@ -105,6 +116,7 @@ onMounted(async () => {
   beatMark.value = song.beatMark
   youtubeLink.value = song.youtubeLink
   lyrics.value = song.lyrics
+  selectedTags.value = song.tags?.map(t => t.id) || []
 })
 
 const updateSong = async () => {
@@ -116,6 +128,7 @@ const updateSong = async () => {
     genre: { id: genreId.value },
     youtubeLink: youtubeLink.value,
     lyrics: lyrics.value,
+    tags: selectedTags.value.map(id => ({ id }))
   }
 
   try {

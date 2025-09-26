@@ -39,6 +39,7 @@
       </button>
 
       <button
+      v-if="userStore.isLoggedIn"
       @click="toggleLike"
       :class="[
         'px-4 mt-2 py-2 rounded-lg font-semibold shadow transition',
@@ -58,6 +59,7 @@ import { ref, computed, onMounted } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import api from '@/assets/api'
 import router from '@/router'
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
 const song = ref({})
@@ -66,6 +68,7 @@ const originalLyrics = ref('')
 const transposeStep = ref(0)
 const otherSongs = ref([])
 const liked = ref(false)
+const userStore = useUserStore()
 
 const fetchSong = async (id = route.params.id) => {
   const { data } = await api.get(`/songs/${id}`)

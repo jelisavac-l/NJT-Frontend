@@ -25,8 +25,8 @@
             <p class="text-sm text-ppp-muted">{{ song.beatMark }} • {{ song.genreName }}</p>
           </div>
           <div class="space-x-2">
-            <button @click="editSong(song.id)" class="px-3 py-1 bg-ppp-secondary text-ppp-white rounded-lg hover:bg-ppp-accent transition">Edit</button>
-            <button @click="deleteSong(song.id)" class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">Delete</button>
+            <button @click="editSong(song.id)" class="px-3 py-1 bg-ppp-secondary text-ppp-white rounded-lg hover:bg-ppp-accent transition">Uredi</button>
+            <button @click="deleteSong(song.id)" class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">Ukloni</button>
           </div>
         </li>
       </ul>
